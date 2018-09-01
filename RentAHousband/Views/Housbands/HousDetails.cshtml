@@ -1,0 +1,21 @@
+﻿@model RentAHousband.Models.Housband
+@{
+    ViewBag.Title = "HousDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Housband Details</h2>
+<h3>@Model.Name</h3>
+<ul>
+    <li>Specialization Type: @Model.SkillName</li>
+    @if (Model.IsBearded)
+    {
+        <li>Brodacz</li>
+    }
+    else
+    {
+        <li>Nie braodacz</li>
+    }
+    <li>Personality: @Model.PersonalityType.Type</li>
+</ul>
+

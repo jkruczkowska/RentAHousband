@@ -1,0 +1,67 @@
+﻿@model IEnumerable<RentAHousband.Models.Housband>
+
+@{
+                /**/
+
+                ViewBag.Title = "Show";
+                Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Housbands</h1>
+<p>
+    @Html.ActionLink("New Housband", "New", "Housbands", null, new { @class = "btn btn-primary" })
+</p>
+@if (!Model.Any())
+{
+    <text>Nie ma takiego meza co potrzebujesz :(((</text>
+}
+else
+{
+    <table id="housbands" class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th>Housbands</th>
+
+                <th>Name</th>
+                <th>Age</th>
+                <th>Personality</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var housband in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(housband.SkillName, "Edit", "Housbands", new { id = housband.Id }, null)
+                    </td>
+                    <td>@housband.Name</td>
+                    <td>@housband.Age</td>
+                    <td>@housband.PersonalityType.Type</td>
+                    <td>
+                        <button data-housband-id="@housband.Id" class="btn-link js-delete">Delete</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#housbands").DataTable();
+
+            $("#housbands").on("click", ".js-delete", function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure you want delete this housband?", function (result) {
+                    if (result) {
+                        return button.parents("tr").remove();
+                    }
+                });
+            });
+        });
+    </script>
+}
